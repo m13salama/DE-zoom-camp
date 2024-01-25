@@ -135,15 +135,8 @@ limit 3;
 <a id="q6"></a>
 ## Question 6. Largest tip
 
-For the passengers picked up in September 2019 in the zone name Astoria which was the drop off zone that had the largest tip?
-We want the name of the zone, not the id.
-
-Note: it's not a typo, it's `tip` , not `trip`
-
-- Central Park
-- Jamaica
-- JFK Airport
-- Long Island City/Queens Plaza
+***Answer***   
+JFK Airport
 
 ***Steps***  
 1- open PgAdmin   
@@ -162,24 +155,119 @@ group by 1
 order by 2 desc
 limit 100;
 ```
-
-## Terraform
-
-In this section homework we'll prepare the environment by creating resources in GCP with Terraform.
-
-In your VM on GCP/Laptop/GitHub Codespace install Terraform. 
-Copy the files from the course repo
-[here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) to your VM/Laptop/GitHub Codespace.
-
-Modify the files as necessary to create a GCP Bucket and Big Query Dataset.
+![results](./screenshots/tip.png)
 
 <a id="q7"></a>
 ## Question 7. Creating Resources
 
-After updating the main.tf and variable.tf files run:
-
+***Steps***  
+run ```terraform apply``` after modifying files as here [main.tf](main.tf) [variables.tf](variables.tf)
+***Output***
 ```
-terraform apply
-```
+var.project
+  Your GCP Project ID
 
-Paste the output of this command into the homework submission form.
+  Enter a value: solid-mantra-412218
+
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_bigquery_dataset.dataset will be created
+  + resource "google_bigquery_dataset" "dataset" {
+      + creation_time              = (known after apply)
+      + dataset_id                 = "trips_data_all"
+      + delete_contents_on_destroy = false
+      + etag                       = (known after apply)
+      + id                         = (known after apply)
+      + labels                     = (known after apply)
+      + last_modified_time         = (known after apply)
+      + location                   = "northamerica-northeast1"
+      + project                    = "solid-mantra-412218"
+      + self_link                  = (known after apply)
+
+      + access {
+          + domain         = (known after apply)
+          + group_by_email = (known after apply)
+          + role           = (known after apply)
+          + special_group  = (known after apply)
+          + user_by_email  = (known after apply)
+
+          + dataset {
+              + target_types = (known after apply)
+
+              + dataset {
+                  + dataset_id = (known after apply)
+                  + project_id = (known after apply)
+                }
+            }
+
+          + routine {
+              + dataset_id = (known after apply)
+              + project_id = (known after apply)
+              + routine_id = (known after apply)
+            }
+
+          + view {
+              + dataset_id = (known after apply)
+              + project_id = (known after apply)
+              + table_id   = (known after apply)
+            }
+        }
+    }
+
+  # google_storage_bucket.data-lake-bucket will be created
+  + resource "google_storage_bucket" "data-lake-bucket" {
+      + force_destroy               = true
+      + id                          = (known after apply)
+      + location                    = "NORTHAMERICA-NORTHEAST1"
+      + name                        = "dtc_data_lake_solid-mantra-412218"
+      + project                     = (known after apply)
+      + public_access_prevention    = (known after apply)
+      + self_link                   = (known after apply)
+      + storage_class               = "STANDARD"
+      + uniform_bucket_level_access = true
+      + url                         = (known after apply)
+
+      + lifecycle_rule {
+          + action {
+              + type = "Delete"
+            }
+
+          + condition {
+              + age                   = 30
+              + matches_prefix        = []
+              + matches_storage_class = []
+              + matches_suffix        = []
+              + with_state            = (known after apply)
+            }
+        }
+
+      + versioning {
+          + enabled = true
+        }
+
+      + website {
+          + main_page_suffix = (known after apply)
+          + not_found_page   = (known after apply)
+        }
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+google_bigquery_dataset.dataset: Creating...
+google_storage_bucket.data-lake-bucket: Creating...
+google_bigquery_dataset.dataset: Creation complete after 1s [id=projects/solid-mantra-412218/datasets/trips_data_all]
+google_storage_bucket.data-lake-bucket: Creation complete after 1s [id=dtc_data_lake_solid-mantra-412218]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+```
