@@ -9,3 +9,4 @@ take a look at it as we will use different editions of it.
 
 #### -[Module 1: Introduction & Prerequisites](./Module-1)
 #### -[Module 2:  Workflow Orchestration](./Module-2)
+#### -[Module 2:  Data warehousing](./Module-3)
