@@ -1,0 +1,5 @@
+Module-1/homework/pgadmin_data/pgadmin4.db
+Module-1/terra/.terraform.lock.hcl
+Module-1/terra/terraform.tfstate
+Module-1/terra/keys/my-creds.json
+Module-1/terra/.terraform/providers/registry.terraform.io/hashicorp/google/4.51.0/linux_amd64/terraform-provider-google_v4.51.0_x5
